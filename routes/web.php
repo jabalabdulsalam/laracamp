@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,7 +24,8 @@ Route::get('/', function () {
 
 //Socialite Routes
 Route::get('sign-in-google', [UserController::class, 'google'])->name('user.login.google');
-Route::get('auth/google/callback', [UserController::class, 'handleProviderCallback'])->name('user.google.callback');
+Route::get('auth/google/callback', [UserController::class, 'handleProviderCallback'])
+    ->name('user.google.callback');
 
 Route::middleware(['auth'])->group(function () {
     // Checkout Routes
@@ -34,4 +35,6 @@ Route::middleware(['auth'])->group(function () {
 
     // User Dashboard
     Route::get('dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+    Route::get('dashboard/checkout/invoice/{checkout}', [CheckoutController::class, 'invoice'])
+        ->name('user.checkout.invoice');
 });
